@@ -1,104 +1,58 @@
-# AgentMail Ops — Claude Agent Skill
+# agentmail-email-skill
 
-Send and receive emails programmatically via AgentMail using Composio. Designed for Claude agents that need autonomous email operations.
+An agent skill for sending and receiving emails autonomously via [AgentMail](https://agentmail.to). Compatible with Claude Code, OpenClaw, and any agent framework that supports skill files.
 
----
-
-## What This Skill Does
+## What it does
 
 - Send emails from agent-controlled inboxes
-- Read and list incoming messages
+- List and read incoming messages
 - Retrieve specific messages by ID
-- Integrate into automated outreach and notification workflows
+- Power autonomous outreach, follow-up, and notification pipelines
 
----
+## When to use this skill
+
+- An agent needs to send outreach or follow-up emails without human intervention
+- You want to monitor an inbox and react to incoming messages
+- You're building email-in-the-loop automation workflows
 
 ## Requirements
 
-- AgentMail API key (`AGENT_MAIL_API_KEY`)
-- Composio SDK
-- An AgentMail inbox (create at [agentmail.to](https://agentmail.to))
+| Requirement | Details |
+|-------------|---------|
+| AgentMail account | [agentmail.to](https://agentmail.to) |
+| API key | `AGENT_MAIL_API_KEY` env var |
+| Composio SDK | `pip install composio` |
 
----
+## Structure
 
-## Setup
-
-```bash
-pip install composio
+```
+agentmail-email-skill/
+├── README.md     ← you are here (overview)
+└── SKILL.md      ← full implementation guide for agents
 ```
 
-Set your environment variable:
-
-```bash
-export AGENT_MAIL_API_KEY=your_key_here
-```
-
----
-
-## Sending Emails
+## Quick example
 
 ```python
 from composio import Composio
 
 composio = Composio()
 
-result = composio.tools.execute(
+composio.tools.execute(
     slug="AGENT_MAIL_SEND_EMAIL",
     version="20260227_00",
     user_id="YOUR_COMPOSIO_USER_ID",
     arguments={
         "inbox_id": "your_inbox@agentmail.to",
         "to": ["recipient@example.com"],
-        "subject": "Your Subject",
-        "text": "Email body text"
+        "subject": "Subject line",
+        "text": "Email body"
     }
 )
 ```
 
----
+See [`SKILL.md`](./SKILL.md) for the full implementation guide.
 
-## Reading Emails
+## Tags
 
-### List Messages
-
-```python
-result = composio.tools.execute(
-    slug="AGENT_MAIL_LIST_MESSAGES",
-    version="20260227_00",
-    user_id="YOUR_COMPOSIO_USER_ID",
-    arguments={
-        "inbox_id": "your_inbox@agentmail.to",
-        "limit": 10
-    }
-)
-```
-
-### Get a Specific Message
-
-```python
-result = composio.tools.execute(
-    slug="AGENT_MAIL_GET_MESSAGE",
-    version="20260227_00",
-    user_id="YOUR_COMPOSIO_USER_ID",
-    arguments={
-        "inbox_id": "your_inbox@agentmail.to",
-        "message_id": "<message-id-from-list>"
-    }
-)
-```
-
----
-
-## Use Cases
-
-- Autonomous outreach agents
-- Lead follow-up automation
-- Notification systems
-- Inbound email monitoring and response
-
----
-
-## Security
-
-- Store `AGENT_MAIL_API_KEY` in environment variables
-- Never hardcode credentials in agent prompts or skill files
+`ai-agent` `email` `agentmail` `automation` `outreach` `claude` `openclaw` `agent-skill` `crm` `sales-automation`
